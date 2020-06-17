@@ -16,7 +16,7 @@ const Spotify = {
       accessToken = accessTokenMatch[1];
       let expiresIn = Number(expiresInMatch[1]);
       //This clears the parameters, allowing to grab new access token then it expires
-      window.setTimeout(() => accessToken = '', expiresIn * 1000);
+      window.setTimeout(() => (accessToken = ''), expiresIn * 1000);
       window.history.pushState('Access Token', null, '/');
       return accessToken;
     } else {
@@ -26,7 +26,7 @@ const Spotify = {
   },
   search(term) {
     const accessToken = Spotify.getAccessToken();
-   
+
     return fetch(`https://api.spotify.com/v1/search?type=track&q=${term}`, {
       headers: { Authorization: `Bearer ${accessToken}` },
     })
@@ -59,15 +59,14 @@ const Spotify = {
 
     ///  this code is the same thing as above, but uses async await instead of .then() ///
     try {
-      const res = await axios.get('https://api.spotify.com/v1/playlists', {
-      headers: headers
-    })
-    console.log(res.data)
-    return res.data
+      const res = await axios.get('https://api.spotify.com/v1/me/playlists', {
+        headers: headers,
+      });
+      console.log(res.data);
+      return res.data;
     } catch (error) {
-      console.log('ERROR', error, error.response)
+      console.log('ERROR', error, error.response);
     }
-    
 
     // return fetch('https://api.spotify.com/v1/playlists', { headers: headers }).then(res => {
     //   return res.json()
@@ -78,8 +77,7 @@ const Spotify = {
     //   console.log(err)
     //   throw new Error('Request Failed')
     // })
-  }
-  ,
+  },
   savePlaylist(name, trackUris) {
     if (!name || !trackUris.length) {
       return;

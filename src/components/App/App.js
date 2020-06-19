@@ -5,6 +5,7 @@ import { SearchResults } from '../SearchResults/SearchResults.js';
 import { Playlist } from '../Playlist/Playlist.js';
 import Spotify from '../../util/Spotify.js';
 import SpotifyPlaylist from '../spotifyPlaylist/spotifyPlaylist';
+import PlaylistTracks from '../PlaylistTracks/PlaylistTracks'
 
 class App extends React.Component {
 
@@ -48,6 +49,13 @@ class App extends React.Component {
     });
   }
 
+  selectPlaylist=(id)=>{
+    Spotify.getPlaylist(id).tracks.then((playlistName)=>
+    {this.setState({ playlistName: playlistName })});
+    //retrive the tracks of selected playlist
+    //update the state of the retrived playlist
+  }
+
   componentWillMount=() => {
     Spotify.bringPlaylist().then(list => {
       console.log("state", list)
@@ -81,7 +89,9 @@ class App extends React.Component {
               />
               <SpotifyPlaylist
                 spotifyList={this.state.spotifyList}
+                selectPlaylist={this.state.selectPlaylist}
               />
+              <PlaylistTracks />
             </div>
           </div>
         </div>

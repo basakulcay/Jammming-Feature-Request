@@ -12,7 +12,6 @@ class SpotifyPlaylist extends React.Component {
       <div className="SpotifyPlaylist">
         <input defaultValue="Existing Playlist" />
         <div>
-
           {this.props.spotifyList.map((playlist) =>
             <p>{playlist.name}</p>
           )}

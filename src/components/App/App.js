@@ -14,6 +14,7 @@ class App extends React.Component {
     playlistName: 'My Playlist',
     playlistTracks: [],
     spotifyList: [],
+    selectedPlaylistTracks:[]
   };
 
 
@@ -91,7 +92,7 @@ class App extends React.Component {
                 spotifyList={this.state.spotifyList}
                 selectPlaylist={this.state.selectPlaylist}
               />
-              <PlaylistTracks />
+              <PlaylistTracks onSelect={this.selectPlaylist} selectedPlaylistTracks= {this.selectedPlaylistTracks}/>
             </div>
           </div>
         </div>

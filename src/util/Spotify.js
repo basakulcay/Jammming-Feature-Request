@@ -47,12 +47,12 @@ const Spotify = {
       });
   },
 
-  getPlaylist(id){
+  async getPlaylist(id){
     let userID;
     let playlist_id;
     const accessToken = Spotify.getAccessToken();
     const headers = { Authorization: `Bearer ${accessToken}` };
-    try {const res =  axios.get(`https://api.spotify.com/v1/users/${userID}/playlists/${playlist_id}/tracks`, 
+    try {const res =  await axios.get(`https://api.spotify.com/v1/users/${userID}/playlists/${playlist_id}/tracks`, 
         {headers: headers});
       console.log(res.data);
       return res.data;} 
@@ -80,13 +80,13 @@ const Spotify = {
 
     const accessToken = Spotify.getAccessToken();
     const headers = { Authorization: `Bearer ${accessToken}` };
-    let userID;
+   
 
     return fetch('https://api.spotify.com/v1/me', { headers: headers })
       .then((response) => response.json())
       .then((jsonResponse) => {
-        userID = jsonResponse.id;
-        return fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
+        
+        return fetch(`https://api.spotify.com/v1/me/playlists`, {
           method: 'POST',
           headers: headers,
           body: JSON.stringify({ name: name }),
@@ -95,7 +95,7 @@ const Spotify = {
           .then((jsonResponse) => {
             const playlistID = jsonResponse.id;
             return fetch(
-              `https://api.spotify.com/v1/users/${userID}/playlists/${playlistID}/tracks`,
+              `https://api.spotify.com/v1/me/playlists/${playlistID}/tracks`,
               {
                 method: 'POST',
                 headers: headers,
